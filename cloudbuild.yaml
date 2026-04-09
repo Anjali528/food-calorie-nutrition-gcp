@@ -16,13 +16,17 @@ steps:
       - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-repo/nutricloud-backend:$COMMIT_SHA'
 
   # Deploy to Cloud Run
-  - name: 'gcr.io/cloud-builders/gke-deploy'
+  - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
-      - '--filename=.'
+      - 'deploy'
+      - 'nutricloud-backend'
       - '--image=asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-repo/nutricloud-backend:$COMMIT_SHA'
-      - '--location=asia-south1'
-      - '--namespace=default'
+      - '--region=asia-south1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--memory=1Gi'
+      - '--timeout=600'
 
 images:
   - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-repo/nutricloud-backend:$COMMIT_SHA'
