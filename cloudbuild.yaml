@@ -26,10 +26,10 @@ steps:
       - '--allow-unauthenticated'
       - '--memory=1Gi'
       - '--timeout=600'
-      - '--set-env-vars=DATABASE_URL=postgresql://appuser:root@34.14.215.40:5432/calorie_app,JWT_SECRET=your_super_secret_key_min_32_characters_long_12345,USDA_API_KEY=57aB9If5DHJpXbfSJzFWI3blGhURTffWIiPoFKWh'
 
 images:
   - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-repo/nutricloud-backend:$COMMIT_SHA'
 
 options:
   machineType: 'N1_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
