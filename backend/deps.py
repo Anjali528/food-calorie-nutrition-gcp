@@ -12,7 +12,7 @@ from models import User
 load_dotenv()
 
 security = HTTPBearer()
-JWT_SECRET = os.environ["JWT_SECRET"]
+JWT_SECRET = os.getenv("JWT_SECRET", "default_secret_key_min_32_characters_long_12345")
 JWT_ALG = "HS256"
 
 def get_current_user(
