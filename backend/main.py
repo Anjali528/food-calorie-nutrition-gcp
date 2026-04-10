@@ -1,12 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from db import engine, Base
 from auth_routes import router as auth_router
 from food_routes import router as food_router
 from meal_routes import router as meal_router
 
+# Create tables on startup
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI(title="Food Calorie Tracker API", debug=True)
 
-# Add CORS middleware HERE
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,7 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Then include routers
+# Include routers
 app.include_router(auth_router)
 app.include_router(food_router)
 app.include_router(meal_router)
